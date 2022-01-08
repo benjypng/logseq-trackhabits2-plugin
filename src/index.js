@@ -35,9 +35,9 @@ const main = async () => {
               [?page :block/original-name ?name]]
       `);
 
-      let payload = allHabits.map((a) => ({
+      const payload = allHabits.map((a) => ({
         content: a[0].content.substring(5, a[0].content.indexOf('#') - 1),
-        parentId: a[0].parent.id,
+        parentId: a[0].page.id,
         journal: a[0]['journal?'],
         uuid: a[0].uuid,
         marker: a[0].marker,
