@@ -24,6 +24,8 @@ const main = async () => {
     const id = type.split('_')[1]?.trim();
     const trackHabitsId = `trackhabits_${id}`;
 
+    if (!type.startsWith(':trackhabits_')) return;
+
     const getAllHabits = async () => {
       const allHabits = await logseq.DB.datascriptQuery(`
       [:find (pull ?b [*])
@@ -84,7 +86,6 @@ const main = async () => {
       return `<div>${board}</div>`;
     };
 
-    if (!type.startsWith(':trackhabits_')) return;
     logseq.provideUI({
       key: `${trackHabitsId}`,
       slot,
