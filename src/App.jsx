@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTable } from 'react-table';
-import styled from 'styled-components';
 
 // Create a default prop getter
 const defaultPropGetter = () => ({});
