@@ -27,7 +27,8 @@ const main = async () => {
     if (!type.startsWith(':trackhabits_')) return;
 
     const getAllHabits = async () => {
-      const allHabits = await logseq.DB.datascriptQuery(`
+      try {
+        const allHabits = await logseq.DB.datascriptQuery(`
       [:find (pull ?b [*])
               :where
               [?b :block/marker ?marker]
@@ -37,26 +38,33 @@ const main = async () => {
               [?page :block/original-name ?name]]
       `);
 
-      const payload = allHabits.map((a) => ({
-        content: a[0].content.substring(5, a[0].content.indexOf('#') - 1),
-        parentId: a[0].page.id,
-        journal: a[0]['journal?'],
-        uuid: a[0].uuid,
-        marker: a[0].marker,
-      }));
+        if (allHabits) {
+          const payload = allHabits.map((a) => ({
+            content: a[0].content.substring(5, a[0].content.indexOf('#') - 1),
+            parentId: a[0].page.id,
+            journal: a[0]['journal?'],
+            uuid: a[0].uuid,
+            marker: a[0].marker,
+          }));
 
-      for (let i = 0; i < payload.length; i++) {
-        const pageDetails = await logseq.Editor.getPage(payload[i].parentId);
-        const dateName = pageDetails.originalName;
-        const rawDate = pageDetails.journalDay;
+          for (let i = 0; i < payload.length; i++) {
+            const pageDetails = await logseq.Editor.getPage(
+              payload[i].parentId
+            );
+            const dateName = pageDetails.originalName;
+            const rawDate = pageDetails.journalDay;
 
-        payload[i]['dateName'] = dateName;
-        payload[i]['rawDate'] = rawDate;
+            payload[i]['dateName'] = dateName;
+            payload[i]['rawDate'] = rawDate;
+          }
+
+          payload.sort((a, b) => parseFloat(a.rawDate) - parseFloat(b.rawDate));
+
+          return payload;
+        }
+      } catch (e) {
+        console.log(e);
       }
-
-      payload.sort((a, b) => parseFloat(a.rawDate) - parseFloat(b.rawDate));
-
-      return payload;
     };
 
     logseq.provideStyle(`
