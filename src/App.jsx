@@ -23,6 +23,7 @@ const Table = ({
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()} className="tableHeader">
+                <span className="toolTipText">{column.render("Header")}</span>
                 {column.render("Header")}
               </th>
             ))}
@@ -92,16 +93,33 @@ const App = (props) => {
     }
   }
 
+  const handleBgColour = (val) => {
+    if (val === "DONE") {
+      return "chartreuse !important";
+    } else if (val === "TODO") {
+      return "red !important";
+    } else {
+      return "";
+    }
+  };
+
   const data = React.useMemo(() => rowArr, []);
   // Data Row End
-
   return (
     <Table
       columns={columns}
       data={data}
       getCellProps={(cellInfo) => ({
         style: {
-          backgroundColor: `${cellInfo.value === "DONE" ? "chartreuse" : ""}`,
+          backgroundColor: `${handleBgColour(cellInfo.value)}`,
+          borderRadius: "50%",
+          border: "1px solid black",
+          margin: "0",
+          padding: "10px 15px",
+          transform:
+            cellInfo.value === "TODO" || cellInfo.value === "DONE"
+              ? "scale(0.4)"
+              : "scale(1)",
         },
       })}
     />
