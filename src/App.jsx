@@ -1,5 +1,5 @@
-import React from 'react';
-import { useTable } from 'react-table';
+import React from "react";
+import { useTable } from "react-table";
 
 // Create a default prop getter
 const defaultPropGetter = () => ({});
@@ -17,13 +17,13 @@ const Table = ({
     });
 
   return (
-    <table {...getTableProps()}>
+    <table className="trackHabits" {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()} className="tableHeader">
-                {column.render('Header')}
+                {column.render("Header")}
               </th>
             ))}
           </tr>
@@ -43,7 +43,7 @@ const Table = ({
                     ])}
                     className="tableRow"
                   >
-                    {cell.render('Cell')}
+                    {cell.render("Cell")}
                   </td>
                 );
               })}
@@ -67,10 +67,11 @@ const App = (props) => {
     let payload = {
       Header: uniqueDates[i],
       accessor: uniqueDates[i],
+      width: 50,
     };
     colArr.push(payload);
   }
-  colArr.unshift({ Header: 'Date', accessor: 'col1' });
+  colArr.unshift({ Header: "Date", accessor: "col1" });
   const columns = React.useMemo(() => colArr, []);
   // Column Headers End
 
@@ -100,7 +101,7 @@ const App = (props) => {
       data={data}
       getCellProps={(cellInfo) => ({
         style: {
-          backgroundColor: `${cellInfo.value === 'DONE' ? 'chartreuse' : ''}`,
+          backgroundColor: `${cellInfo.value === "DONE" ? "chartreuse" : ""}`,
         },
       })}
     />

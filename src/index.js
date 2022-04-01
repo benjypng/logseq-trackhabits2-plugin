@@ -1,19 +1,19 @@
-import '@logseq/libs';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import App from './App';
+import "@logseq/libs";
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+import App from "./App";
 
 const main = async () => {
-  console.log('Track habits plugin loaded');
+  console.log("Track habits plugin loaded");
 
   // Generate unique identifier
   const uniqueIdentifier = () =>
     Math.random()
       .toString(36)
-      .replace(/[^a-z]+/g, '');
+      .replace(/[^a-z]+/g, "");
 
   // Insert renderer upon slash command
-  logseq.Editor.registerSlashCommand('track habits', async () => {
+  logseq.Editor.registerSlashCommand("track habits", async () => {
     await logseq.Editor.insertAtEditingCursor(
       `{{renderer :trackhabits_${uniqueIdentifier()}}}`
     );
@@ -21,10 +21,10 @@ const main = async () => {
 
   logseq.App.onMacroRendererSlotted(async ({ slot, payload }) => {
     const [type] = payload.arguments;
-    const id = type.split('_')[1]?.trim();
+    const id = type.split("_")[1]?.trim();
     const trackHabitsId = `trackhabits_${id}`;
 
-    if (!type.startsWith(':trackhabits_')) return;
+    if (!type.startsWith(":trackhabits_")) return;
 
     const getAllHabits = async () => {
       try {
@@ -40,9 +40,9 @@ const main = async () => {
 
         if (allHabits) {
           const payload = allHabits.map((a) => ({
-            content: a[0].content.substring(5, a[0].content.indexOf('#') - 1),
+            content: a[0].content.substring(5, a[0].content.indexOf("#") - 1),
             parentId: a[0].page.id,
-            journal: a[0]['journal?'],
+            journal: a[0]["journal?"],
             uuid: a[0].uuid,
             marker: a[0].marker,
           }));
@@ -54,8 +54,8 @@ const main = async () => {
             const dateName = pageDetails.originalName;
             const rawDate = pageDetails.journalDay;
 
-            payload[i]['dateName'] = dateName;
-            payload[i]['rawDate'] = rawDate;
+            payload[i]["dateName"] = dateName;
+            payload[i]["rawDate"] = rawDate;
           }
 
           payload.sort((a, b) => parseFloat(a.rawDate) - parseFloat(b.rawDate));
@@ -68,18 +68,25 @@ const main = async () => {
     };
 
     logseq.provideStyle(`
-    .tableHeader {
-      border-bottom: solid 3px red;
-      background: aliceblue;
-      color: black !important;
-      font-weight: bold;
+    .tableHeader, .tableRow {
+        border: solid 1px black;
+        color: black !important;
+        background-color: white !important;
     }
-
-    .tableRow {
-      padding: 10px;
-      border: solid 1px gray;
-      background: papayawhip;
-      color: black;
+    table.trackHabits {
+        table-layout: fixed !important;
+        width: 100px !important;
+    }
+    table.trackHabits th {
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis;
+        width: 100px !important;
+    }
+    table.trackHabits thead tr th:first-child, tbody tr td:first-child {
+        width: 200px !important;
+        min-width: 200px !important;
+        max-width: 200px !important;
     }
     `);
 
@@ -87,7 +94,7 @@ const main = async () => {
     const board = ReactDOMServer.renderToStaticMarkup(
       <App habitsArr={await getAllHabits()} />
     );
-    const newBoard = board.replace(/TODO/g, '').replace(/DONE/g, '');
+    const newBoard = board.replace(/TODO/g, "").replace(/DONE/g, "");
 
     // Set div for renderer to use
     const cmBoard = (board) => {
