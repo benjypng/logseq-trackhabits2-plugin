@@ -111,7 +111,7 @@ const main = async () => {
 
     // Use React to render board
     const board = ReactDOMServer.renderToStaticMarkup(
-      <App habitsArr={await getAllHabits()} />
+      <App habitsArr={await getAllHabits().slice(-10)} />
     );
     const newBoard = board.replace(/TODO/g, "").replace(/DONE/g, "");
 
