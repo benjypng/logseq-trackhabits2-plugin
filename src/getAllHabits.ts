@@ -31,11 +31,16 @@ export async function getAllHabits() {
       }
 
       payload = payload
+        // Filters out TODOs on non journal pages
+        .filter((a: BlockEntity) => a.journal)
+        // Sorts by date
         .sort(
           (a: BlockEntity, b: BlockEntity) =>
             parseFloat(a.rawDate) - parseFloat(b.rawDate)
         )
+        // Reverse sort so latest is first
         .reverse()
+        // Take only first few items depending on settings
         .slice(0, logseq.settings!.noOfItems);
 
       return payload;
