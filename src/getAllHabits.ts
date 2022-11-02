@@ -38,10 +38,8 @@ export async function getAllHabits() {
           (a: BlockEntity, b: BlockEntity) =>
             parseFloat(a.rawDate) - parseFloat(b.rawDate)
         )
-        // Reverse sort so latest is first
-        .reverse()
         // Take only first few items depending on settings
-        .slice(0, logseq.settings!.noOfItems);
+        .slice(-logseq.settings!.noOfItems);
 
       return payload;
     }
