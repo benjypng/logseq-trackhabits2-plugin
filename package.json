@@ -14,10 +14,10 @@
   "author": "hkgnp",
   "license": "MIT",
   "dependencies": {
-    "@logseq/libs": "^0.0.1-alpha.33",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-table": "^7.7.0"
+    "@logseq/libs": "^0.0.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-table": "^7.8.0"
   },
   "logseq": {
     "id": "logseq-trackhabits2-plugin",
@@ -25,6 +25,8 @@
     "icon": "./icon.svg"
   },
   "devDependencies": {
-    "parcel": "^2.0.1"
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "parcel": "^2.7.0"
   }
 }
