@@ -1,6 +1,6 @@
 {
   "name": "logseq-trackhabits2-plugin",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Easily track your habits by just tagging your TODO list with #habit-tracker !",
   "main": "dist/index.html",
   "targets": {

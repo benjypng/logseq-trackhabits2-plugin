@@ -35,7 +35,7 @@ export async function getAllHabits() {
         // Sorts by date
         .sort(
           (a: BlockEntity, b: BlockEntity) =>
-            parseFloat(a.rawDate) - parseFloat(b.rawDate)
+            parseInt(a.rawDate) - parseInt(b.rawDate)
         )
         // Take only first few items depending on settings
         .slice(-logseq.settings!.noOfItems);
