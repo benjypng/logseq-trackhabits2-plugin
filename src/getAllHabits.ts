@@ -16,7 +16,6 @@ export async function getAllHabits() {
       let payload = allHabits.map((a: any) => ({
         content: a[0].content.substring(5, a[0].content.indexOf("#") - 1),
         parentId: a[0].page.id,
-        journal: a[0]["journal?"],
         uuid: a[0].uuid,
         marker: a[0].marker,
       }));
@@ -32,7 +31,7 @@ export async function getAllHabits() {
 
       payload = payload
         // Filters out TODOs on non journal pages
-        .filter((a: BlockEntity) => a.journal)
+        .filter((a: any) => a.rawDate !== undefined)
         // Sorts by date
         .sort(
           (a: BlockEntity, b: BlockEntity) =>
