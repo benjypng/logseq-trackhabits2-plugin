@@ -43,7 +43,7 @@ const main = async () => {
 
     // Set div for renderer to use
     const cmBoard = (board: any) => {
-      return `<div id="${trackHabitsId}" data-trackhabits-id="${trackHabitsId}" data-slot-id="${slot}">${board}</div>`;
+      return `<div id="${trackHabitsId}" class="trackHabits" data-trackhabits-id="${trackHabitsId}" data-slot-id="${slot}">${board}</div>`;
     };
 
     logseq.provideUI({
