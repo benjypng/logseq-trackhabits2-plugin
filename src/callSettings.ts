@@ -21,7 +21,6 @@ export function callStyle() {
             min-width: 200px !important;
             max-width: 200px !important;
         }
-
 				.trackHabits .tableHeader, .trackHabits .tableRow {
             border: solid 1px black;
             color: black !important;
@@ -29,6 +28,10 @@ export function callStyle() {
         }
         .trackHabits .tableHeader {
             border-bottom: 1px dotted block;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            text-overflow: ellipsis;
+            width: 50px !important;
         }
         .trackHabits .tableHeader .toolTipText {
             visibility: hidden;
@@ -48,12 +51,6 @@ export function callStyle() {
         }
         .trackHabits {
             table-layout: fixed !important;
-            width: 50px !important;
-        }
-        .trackHabits th {
-            overflow: hidden !important;
-            white-space: nowrap !important;
-            text-overflow: ellipsis;
             width: 50px !important;
         }
 	`);
