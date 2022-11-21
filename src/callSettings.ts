@@ -16,15 +16,21 @@ export function callSettings() {
 
 export function callStyle() {
   logseq.provideStyle(`
-				table.trackHabits .tableHeader, .tableRow {
+				.trackHabits thead tr th:first-child, .trackHabits tbody tr td:first-child {
+            width: 200px !important;
+            min-width: 200px !important;
+            max-width: 200px !important;
+        }
+
+				.trackHabits .tableHeader, .trackHabits .tableRow {
             border: solid 1px black;
             color: black !important;
             background-color: white !important;
         }
-        table.trackHabits .tableHeader {
+        .trackHabits .tableHeader {
             border-bottom: 1px dotted block;
         }
-        table.trackHabits .tableHeader .toolTipText {
+        .trackHabits .tableHeader .toolTipText {
             visibility: hidden;
             width: 120px;
             background-color: black;
@@ -35,26 +41,20 @@ export function callStyle() {
             position: absolute;
             z-index: 1;
         }
-        table.trackHabits .tableHeader:hover .toolTipText {
+        .trackHabits .tableHeader:hover .toolTipText {
             margin-top:-15px;
             visibility: visible;
             cursor: pointer;
         }
-        table.trackHabits {
+        .trackHabits {
             table-layout: fixed !important;
             width: 50px !important;
         }
-        table.trackHabits th {
+        .trackHabits th {
             overflow: hidden !important;
             white-space: nowrap !important;
             text-overflow: ellipsis;
             width: 50px !important;
         }
-        table.trackHabits thead tr th:first-child, tbody tr td:first-child {
-            width: 200px !important;
-            min-width: 200px !important;
-            max-width: 200px !important;
-        }
-
 	`);
 }

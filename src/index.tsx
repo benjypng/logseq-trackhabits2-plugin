@@ -11,9 +11,6 @@ const main = async () => {
   // Call plugin settings
   callSettings();
 
-  // Call plugin css styles
-  callStyle();
-
   // Generate unique identifier
   const uniqueIdentifier = () =>
     Math.random()
@@ -31,6 +28,9 @@ const main = async () => {
     const [type] = payload.arguments;
     const id = type.split("_")[1]?.trim();
     const trackHabitsId = `trackhabits_${id}`;
+
+    // Call plugin css styles
+    callStyle();
 
     if (!type.startsWith(":trackhabits_")) return;
     const allHabitsArr: any[] = await getAllHabits();
