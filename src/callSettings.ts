@@ -21,18 +21,16 @@ export function callStyle() {
             min-width: 200px !important;
             max-width: 200px !important;
         }
-				.trackHabits .tableHeader, .trackHabits .tableRow {
-            border: solid 1px black;
-            color: black !important;
-            background-color: white !important;
-        }
         .trackHabits .tableHeader {
-            border-bottom: 1px dotted block;
+            border: 1px solid;
             overflow: hidden !important;
             white-space: nowrap !important;
             text-overflow: ellipsis;
             width: 50px !important;
         }
+				.trackHabits .tableRow {
+					  border: 1px solid;
+				}
         .trackHabits .tableHeader .toolTipText {
             visibility: hidden;
             width: 120px;

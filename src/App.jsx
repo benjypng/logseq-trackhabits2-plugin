@@ -113,7 +113,7 @@ const App = (props) => {
         style: {
           backgroundColor: `${handleBgColour(cellInfo.value)}`,
           borderRadius: "50%",
-          border: "1px solid black",
+          border: "1px solid",
           margin: "0",
           padding: "10px 15px",
           transform:

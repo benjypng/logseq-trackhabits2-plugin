@@ -1,6 +1,6 @@
 {
   "name": "logseq-trackhabits2-plugin",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Easily track your habits by just tagging your TODO list with #habit-tracker !",
   "main": "dist/index.html",
   "targets": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build --no-source-maps src/index.html --public-url ./"
+    "build": "rm -R dist && echo 'dist folder removed' ; parcel build --no-source-maps src/index.html --public-url ./"
   },
   "keywords": [],
   "author": "hkgnp",
