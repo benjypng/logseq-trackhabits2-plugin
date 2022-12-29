@@ -27,7 +27,7 @@ const main = async () => {
   logseq.App.onMacroRendererSlotted(async ({ slot, payload }) => {
     const [type] = payload.arguments;
     const id = type.split("_")[1]?.trim();
-    const trackHabitsId = `trackhabits_${id}`;
+    const trackHabitsId = `trackhabits_${id}_${slot}`;
 
     // Call plugin css styles
     callStyle();

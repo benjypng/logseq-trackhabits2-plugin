@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTable } from "react-table";
 
 // Create a default prop getter
@@ -116,10 +116,6 @@ const App = (props) => {
           border: "1px solid",
           margin: "0",
           padding: "10px 15px",
-          transform:
-            cellInfo.value === "TODO" || cellInfo.value === "DONE"
-              ? "scale(0.4)"
-              : "scale(1)",
         },
       })}
     />

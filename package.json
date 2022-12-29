@@ -1,20 +1,19 @@
 {
   "name": "logseq-trackhabits2-plugin",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "Easily track your habits by just tagging your TODO list with #habit-tracker !",
   "main": "dist/index.html",
   "targets": {
     "main": false
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -R dist && echo 'dist folder removed' ; parcel build --no-source-maps src/index.html --public-url ./"
+    "build": "rm -R dist && echo 'dist folder removed'; parcel build --no-source-maps src/index.html --public-url ./"
   },
   "keywords": [],
   "author": "hkgnp",
   "license": "MIT",
   "dependencies": {
-    "@logseq/libs": "^0.0.10",
+    "@logseq/libs": "^0.0.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-table": "^7.8.0"
@@ -25,8 +24,8 @@
     "icon": "./icon.svg"
   },
   "devDependencies": {
-    "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.8",
-    "parcel": "^2.7.0"
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "parcel": "^2.8.2"
   }
 }
