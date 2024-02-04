@@ -5,11 +5,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-type DataProps = { [key: string]: string | undefined }[];
-type ColumnProps = ColumnDef<{ [key: string]: any }>[];
 type TableProps = {
-  data: DataProps;
-  columns: ColumnProps;
+  data: { [key: string]: string | undefined }[];
+  columns: ColumnDef<{ [key: string]: any }>[];
 };
 
 export const HabitsTable = ({ data, columns }: TableProps) => {
