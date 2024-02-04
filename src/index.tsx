@@ -1,48 +1,36 @@
 import "@logseq/libs";
-import React from "react";
 import ReactDOMServer from "react-dom/server";
-import App from "./App";
-import { callStyle, callSettings } from "./callSettings";
-import { getAllHabits } from "./getAllHabits";
+import { HabitsTable } from "./components/HabitsTable";
+import { getAllHabits } from "./helpers/get-all-habits";
+import { settings } from "./settings";
+import "./tailwind.css"
 
 const main = async () => {
   console.log("logseq-trackhabits2-plugin loaded");
 
-  // Call plugin settings
-  callSettings();
-
-  // Generate unique identifier
-  const uniqueIdentifier = () =>
-    Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, "");
-
   // Insert renderer upon slash command
-  logseq.Editor.registerSlashCommand("track habits", async () => {
+  logseq.Editor.registerSlashCommand("Track habits", async (e) => {
     await logseq.Editor.insertAtEditingCursor(
-      `{{renderer :trackhabits_${uniqueIdentifier()}}}`
+      `{{renderer :trackhabits_${e.uuid}}}`
     );
   });
 
   logseq.App.onMacroRendererSlotted(async ({ slot, payload }) => {
     const [type] = payload.arguments;
-    const id = type.split("_")[1]?.trim();
-    const trackHabitsId = `trackhabits_${id}_${slot}`;
-
-    // Call plugin css styles
-    callStyle();
-
+    if (!type) return;
+    const trackHabitsId = `trackhabits_${payload?.uuid}_${slot}`;
     if (!type.startsWith(":trackhabits_")) return;
-    const allHabitsArr: any[] = await getAllHabits();
+
+    const tableData = await getAllHabits();
+    if (!tableData) return;
 
     // Use React to render board
-    const board = ReactDOMServer.renderToStaticMarkup(
-      <App habitsArr={allHabitsArr} />
+    let html = ReactDOMServer.renderToStaticMarkup(
+      <HabitsTable data={tableData.data} columns={tableData.columns} />
     );
-    const newBoard = board.replace(/TODO/g, "").replace(/DONE/g, "");
 
     // Set div for renderer to use
-    const cmBoard = (board: any) => {
+    const createBoard = (board: string) => {
       return `<div id="${trackHabitsId}" class="trackHabits" data-trackhabits-id="${trackHabitsId}" data-slot-id="${slot}">${board}</div>`;
     };
 
@@ -50,9 +38,9 @@ const main = async () => {
       key: `${trackHabitsId}`,
       slot,
       reset: true,
-      template: cmBoard(newBoard),
+      template: createBoard(html),
     });
   });
 };
 
-logseq.ready(main).catch(console.error);
+logseq.useSettingsSchema(settings).ready(main).catch(console.error);
