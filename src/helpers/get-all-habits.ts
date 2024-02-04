@@ -1,4 +1,3 @@
-import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
 import { createColumnHelper } from "@tanstack/react-table";
 
 type Habit = {
