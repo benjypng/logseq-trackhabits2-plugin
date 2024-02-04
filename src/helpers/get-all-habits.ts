@@ -17,7 +17,7 @@ export const getAllHabits = async (): Promise<{ data: any, columns: any } | void
               [?b :block/marker ?marker]
               [(missing? $ ?b :block/scheduled)]
               [(contains? #{"TODO" "DONE"} ?marker)]
-              [?b :block/path-refs [:block/name "habit-tracker"]]
+              [?b :block/path-refs [:block/name ${logseq.settings!.pageReference!}]]
               [?page :block/original-name ?name]]
       `);
     if (!allHabits) return;
@@ -49,7 +49,7 @@ export const getAllHabits = async (): Promise<{ data: any, columns: any } | void
           (a.rawDate!) - (b.rawDate!)
       )
       // Take only first few items depending on settings
-      .slice(-logseq.settings!.noOfItems);
+      .slice(-logseq.settings!.noOfItems!);
 
 
     const uniqueHabits = [...new Set(habitArr.map(h => h.content))]
