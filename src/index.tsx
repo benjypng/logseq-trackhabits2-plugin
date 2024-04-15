@@ -3,7 +3,7 @@ import ReactDOMServer from "react-dom/server";
 import { HabitsTable } from "./components/HabitsTable";
 import { getAllHabits } from "./helpers/get-all-habits";
 import { settings } from "./settings";
-import "./tailwind.css"
+import "./tailwind.css";
 
 const main = async () => {
   console.log("logseq-trackhabits2-plugin loaded");
@@ -11,7 +11,7 @@ const main = async () => {
   // Insert renderer upon slash command
   logseq.Editor.registerSlashCommand("Track habits", async (e) => {
     await logseq.Editor.insertAtEditingCursor(
-      `{{renderer :trackhabits_${e.uuid}}}`
+      `{{renderer :trackhabits_${e.uuid}}}`,
     );
   });
 
@@ -22,11 +22,12 @@ const main = async () => {
     if (!type.startsWith(":trackhabits_")) return;
 
     const tableData = await getAllHabits();
+    console.log("Table Data", tableData);
     if (!tableData) return;
 
     // Use React to render board
     let html = ReactDOMServer.renderToStaticMarkup(
-      <HabitsTable data={tableData.data} columns={tableData.columns} />
+      <HabitsTable data={tableData.data} columns={tableData.columns} />,
     );
 
     // Set div for renderer to use
