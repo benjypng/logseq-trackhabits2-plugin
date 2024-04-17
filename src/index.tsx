@@ -22,7 +22,6 @@ const main = async () => {
     if (!type.startsWith(":trackhabits_")) return;
 
     const tableData = await getAllHabits();
-    console.log("Table Data", tableData);
     if (!tableData) return;
 
     // Use React to render board

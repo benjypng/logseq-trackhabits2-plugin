@@ -15,9 +15,8 @@ export const getAllHabits = async (): Promise<{
 } | void> => {
   try {
     let allHabits = await logseq.DB.q(
-      `(and (task TODO DOING NOW LATER) [[habit-tracker]])`,
+      `(and (task TODO DOING NOW LATER DONE) [[habit-tracker]])`,
     );
-    console.log("All Habits", allHabits);
     if (!allHabits) return;
 
     let habitArr: Habit[] = [];
