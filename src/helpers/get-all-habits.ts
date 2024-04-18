@@ -1,4 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import { HabitsTable } from "~/components/HabitsTable";
 
 type Habit = {
   content: string;
@@ -15,7 +16,7 @@ export const getAllHabits = async (): Promise<{
 } | void> => {
   try {
     let allHabits = await logseq.DB.q(
-      `(and (task TODO DOING NOW LATER DONE) [[habit-tracker]])`,
+      `(and (task TODO DOING NOW LATER DONE) [[${logseq.settings?.pageReference}]])`,
     );
     if (!allHabits) return;
 
@@ -34,6 +35,7 @@ export const getAllHabits = async (): Promise<{
         rawDate,
       });
     }
+    console.log(habitArr);
 
     habitArr = habitArr
       // Filters out TODOs on non journal pages
@@ -44,9 +46,14 @@ export const getAllHabits = async (): Promise<{
       .slice(-logseq.settings!.noOfItems!);
 
     const uniqueHabits = [...new Set(habitArr.map((h) => h.content))];
+
+    console.log(uniqueHabits)
+
     const columnHelper = createColumnHelper<Habit>();
     const columns = [
-      columnHelper.accessor("dateName", { cell: (info) => info.getValue() }),
+      columnHelper.accessor("dateName", {
+        cell: (info) => info.getValue(), header: () => "Date"
+      }),
       ...uniqueHabits.map((contentType) =>
         columnHelper.accessor(
           (row) =>
